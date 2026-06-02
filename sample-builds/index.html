@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Builds | Upstream Consulting</title>
+  <meta name="description" content="A gallery of working AI systems built by Upstream Consulting — accounting, email triage, document review, audits, and more. Real builds, running today.">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* ============================================
+       Sample Builds — page-local styles
+       (site CSS variables only)
+       ============================================ */
+
+    .build-group { margin-bottom: 3.5rem; }
+    .build-group:last-child { margin-bottom: 0; }
+
+    .build-group-head {
+      font-family: 'Syne', 'Arial', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      padding-bottom: .65rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    /* Build card grid: 3-up desktop, 2-up tablet, 1-up mobile */
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .build-card {
+      position: relative;
+      text-align: left;
+      width: 100%;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .build-card:hover,
+    .build-card:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gold);
+      outline: none;
+    }
+
+    .build-card h3 {
+      font-family: 'Syne', 'Arial', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-size: 1.02rem;
+      color: var(--charcoal);
+      margin-bottom: .55rem;
+      padding-right: 1.5rem;
+    }
+    .build-card .build-pitch-line {
+      font-style: italic;
+      color: var(--gray-600);
+      font-size: .98rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Small subtle category pill */
+    .build-badge {
+      display: inline-block;
+      border: 1px solid var(--gray-400);
+      color: var(--gray-600);
+      font-family: 'Syne', 'Arial', sans-serif;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .build-badge[hidden] {
+      display: none;
+    }
+    .build-card .build-badge {
+      display: block;
+      width: fit-content;
+      margin-bottom: 10px;
+    }
+
+    /* Enlarge hint */
+    .build-card .build-enlarge {
+      margin-top: 1rem;
+      font-family: 'Syne', 'Arial', sans-serif;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    /* ---- Modal ---- */
+    .build-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(26,26,46,.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    .build-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .build-modal {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 540px;
+      width: 100%;
+      padding: 44px 40px 40px;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(12px) scale(.98);
+      transition: transform var(--transition);
+    }
+    .build-modal-backdrop.open .build-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .build-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gray-100);
+      color: var(--charcoal);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), color var(--transition);
+    }
+    .build-modal-close:hover {
+      background: var(--gold);
+      color: var(--charcoal);
+    }
+
+    .build-modal .build-badge {
+      margin-bottom: 1rem;
+    }
+    .build-modal h2 {
+      font-family: 'Aboreto', sans-serif;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+    }
+    .build-modal .build-modal-pitch {
+      color: var(--gray-600);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1024px) {
+      .builds-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .builds-grid { grid-template-columns: 1fr; }
+      .build-modal { padding: 40px 26px 32px; }
+      .build-modal h2 { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/behind-the-work/">Behind the Work</a></li>
+        <li><a href="/ai-integration/">AI Integration</a></li>
+        <li><a href="/red/">Real Estate Dev</a></li>
+        <li><a href="/system-development/">Systems Dev</a></li>
+        <li><a href="/sample-builds/" class="active">Sample Builds</a></li>
+        <li><a href="/ways-to-work/">Ways to Work</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Sample Builds</h1>
+      <p>Real systems we've built and run ourselves. Click any card for the short version of what it does.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Build Gallery -->
+  <section>
+    <div class="container">
+
+      <!-- Money & Books -->
+      <div class="build-group">
+        <h2 class="build-group-head">Money &amp; Books</h2>
+        <div class="builds-grid">
+
+          <button class="build-card" type="button"
+            data-name="Accounting Assistant"
+            data-badge=""
+            data-pitch="Bank-feed coding, receipt capture, GST/HST filing, month-end close, and clean financial statements — run by AI inside the Excel workbook you already own. A human approves every entry; the AI does the typing.">
+            <h3>Accounting Assistant</h3>
+            <p class="build-pitch-line">Your books, coded and reconciled.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Expense Folder Processor"
+            data-badge=""
+            data-pitch="Drop a messy folder of PDFs, photos, and emailed receipts in one end. Out the other comes a deduplicated, tax-coded table ready for your books — with anything questionable flagged for a human look first.">
+            <h3>Expense Folder Processor</h3>
+            <p class="build-pitch-line">A folder of receipts becomes a clean table.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Mileage Tracker"
+            data-badge=""
+            data-pitch="It reads your calendar, figures out where you drove, calculates the distances, and classifies business versus personal — then writes the audit-defense narrative the CRA wants to see. Contemporaneous logs without keeping a logbook.">
+            <h3>Mileage Tracker</h3>
+            <p class="build-pitch-line">A CRA-proof logbook, mined from your calendar.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Audit Readiness Reviewer"
+            data-badge=""
+            data-pitch="A read-only reviewer that walks a fiscal year against a CRA audit-defense checklist — revenue, expenses, payroll, tax credits, GST — and hands you one branded findings pack. It never touches the books; it just tells you where they'd push.">
+            <h3>Audit Readiness Reviewer</h3>
+            <p class="build-pitch-line">Audit-ready before the CRA calls.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Investment Research Desk"
+            data-badge="Personal build"
+            data-pitch="Nine classic investing strategy lenses, risk screens, and a live dashboard sitting over a real position ledger. It surfaces the numbers and the bear case; you make the calls.">
+            <span class="build-badge">Personal build</span>
+            <h3>Investment Research Desk</h3>
+            <p class="build-pitch-line">A research desk in your corner.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Day-to-Day Operations -->
+      <div class="build-group">
+        <h2 class="build-group-head">Day-to-Day Operations</h2>
+        <div class="builds-grid">
+
+          <button class="build-card" type="button"
+            data-name="Email Triage"
+            data-badge=""
+            data-pitch="Every morning your Outlook inbox gets sorted into Urgent, Action, and FYI — with replies pre-drafted in your voice. Nothing sends, archives, or moves without your explicit OK.">
+            <h3>Email Triage</h3>
+            <p class="build-pitch-line">An inbox that sorts itself.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Workstation Audit"
+            data-badge=""
+            data-pitch="One script reads a workstation's startup apps, services, scheduled tasks, and security posture, then scores it against an industry baseline. You get a clear report of what's fine, what's drift, and what's risk.">
+            <h3>Workstation Audit</h3>
+            <p class="build-pitch-line">Know what's running on every machine.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Construction Document Review"
+            data-badge=""
+            data-pitch="RFIs, change orders, code compliance, lease responsibility, and spec gaps — reviewed through architect, general contractor, engineer, and owner lenses before they cost you money. Built by someone who managed these documents for a living.">
+            <h3>Construction Document Review</h3>
+            <p class="build-pitch-line">A second set of eyes on every document.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Drawing Review (Bluebeam)"
+            data-badge=""
+            data-pitch="Walk the drawing set, talk through your concerns into your phone, and get back a Bluebeam-ready markup file — page references, severity, and category on every comment. The source PDF is never touched.">
+            <h3>Drawing Review (Bluebeam)</h3>
+            <p class="build-pitch-line">Voice memo in, Bluebeam markups out.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Growth & Clients -->
+      <div class="build-group">
+        <h2 class="build-group-head">Growth &amp; Clients</h2>
+        <div class="builds-grid">
+
+          <button class="build-card" type="button"
+            data-name="Trial Seat System"
+            data-badge=""
+            data-pitch="A guided two-week trial for one person at your company — pre-staged with your context, your projects, and a daily rhythm. By the end you know exactly what AI is worth to your operation, with the receipts to prove it.">
+            <h3>Trial Seat System</h3>
+            <p class="build-pitch-line">Two weeks of AI, properly set up.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Lunch &amp; Learn Kit"
+            data-badge=""
+            data-pitch="Give it a topic, an audience, and a date. It builds the branded deck, the run-sheet, and the invite emails — everything needed to run an AI awareness session that doesn't feel canned.">
+            <h3>Lunch &amp; Learn Kit</h3>
+            <p class="build-pitch-line">A full session kit from one sentence.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Proposal &amp; BizDev Desk"
+            data-badge="Internal tooling"
+            data-pitch="Prospect briefings, outreach drafts, and proposals that stay locked to a phased engagement model — so every document going out the door says the same thing about how we work.">
+            <span class="build-badge">Internal tooling</span>
+            <h3>Proposal &amp; BizDev Desk</h3>
+            <p class="build-pitch-line">Proposals that follow the playbook.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Marketing Desk"
+            data-badge="Internal tooling"
+            data-pitch="Content drafting with a voice gatekeeper between draft and publish, plus a lane balance tracker so the feed never drifts into one note. Everything published sounds like the founder wrote it — because it's checked against how he actually writes.">
+            <span class="build-badge">Internal tooling</span>
+            <h3>Marketing Desk</h3>
+            <p class="build-pitch-line">Your voice, kept honest.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Under the Hood -->
+      <div class="build-group">
+        <h2 class="build-group-head">Under the Hood</h2>
+        <div class="builds-grid">
+
+          <button class="build-card" type="button"
+            data-name="Platform Installer"
+            data-badge="Internal tooling"
+            data-pitch="Bootstraps a new machine and installs, syncs, and version-checks every other package in this gallery. It's how a build that works on our machines becomes a build that works on yours.">
+            <span class="build-badge">Internal tooling</span>
+            <h3>Platform Installer</h3>
+            <p class="build-pitch-line">One command installs the rest.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Session Guardrails"
+            data-badge="Internal tooling"
+            data-pitch="Path enforcement, credential-safety detection, and health checks that run automatically on every AI session. The unglamorous layer that keeps autonomous work from drifting.">
+            <span class="build-badge">Internal tooling</span>
+            <h3>Session Guardrails</h3>
+            <p class="build-pitch-line">Guardrails for the AI itself.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="IT Approval Gate"
+            data-badge="Internal tooling"
+            data-pitch="Before any tool gets installed, it's checked against an approval register and flagged with a status tier and next step. Advisory, not blocking — the human still decides.">
+            <span class="build-badge">Internal tooling</span>
+            <h3>IT Approval Gate</h3>
+            <p class="build-pitch-line">A pre-flight check on every install.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+          <button class="build-card" type="button"
+            data-name="Home Ops Dispatch"
+            data-badge="Personal build"
+            data-pitch="Voice dispatches become household tasks, calendar events, and meal plans — routed to the right person automatically. Proof the approach works anywhere there's an inbox and a to-do list.">
+            <span class="build-badge">Personal build</span>
+            <h3>Home Ops Dispatch</h3>
+            <p class="build-pitch-line">The same system, at home.</p>
+            <span class="build-enlarge">Click to read more</span>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="dark-section cta-section">
+    <div class="container">
+      <h2>Want one of these pointed at your business?</h2>
+      <a href="/contact/" class="btn btn-outline">Let's Talk</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Upstream Consulting</h4>
+          <p><a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a></p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <a href="/">Home</a>
+          <a href="/behind-the-work/">Behind the Work</a>
+          <a href="/ai-integration/">AI Integration</a>
+          <a href="/red/">Real Estate Dev</a>
+          <a href="/system-development/">Systems Dev</a>
+          <a href="/sample-builds/">Sample Builds</a>
+          <a href="/ways-to-work/">Ways to Work</a>
+        </div>
+        <div class="footer-col">
+          <h4>More</h4>
+          <a href="/contact/">Contact</a>
+          <a href="/faqs/">FAQ</a>
+          <a href="/legal/">Legal</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; Upstream Consulting Solutions Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Build Modal -->
+  <div class="build-modal-backdrop" id="buildModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="buildModalTitle" hidden>
+    <div class="build-modal">
+      <button class="build-modal-close" id="buildModalClose" aria-label="Close">&times;</button>
+      <span class="build-badge" id="buildModalBadge" hidden></span>
+      <h2 id="buildModalTitle"></h2>
+      <p class="build-modal-pitch" id="buildModalPitch"></p>
+      <a href="/contact/" class="btn btn-primary">Talk to us about this one</a>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+  <script>
+    // --- Nav + back-to-top (site standard pattern) ---
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // --- Build card modal ---
+    const backdrop = document.getElementById('buildModalBackdrop');
+    const modalTitle = document.getElementById('buildModalTitle');
+    const modalPitch = document.getElementById('buildModalPitch');
+    const modalBadge = document.getElementById('buildModalBadge');
+    const modalClose = document.getElementById('buildModalClose');
+    let lastFocused = null;
+
+    function openModal(card) {
+      lastFocused = card;
+      modalTitle.textContent = card.dataset.name;
+      modalPitch.textContent = card.dataset.pitch;
+      const badge = card.dataset.badge;
+      if (badge) {
+        modalBadge.textContent = badge;
+        modalBadge.hidden = false;
+      } else {
+        modalBadge.hidden = true;
+      }
+      backdrop.hidden = false;
+      // next frame so the transition runs
+      requestAnimationFrame(() => backdrop.classList.add('open'));
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      const onEnd = () => {
+        backdrop.hidden = true;
+        backdrop.removeEventListener('transitionend', onEnd);
+      };
+      backdrop.addEventListener('transitionend', onEnd);
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.build-card').forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
+    });
+  </script>
+
+</body>
+</html>

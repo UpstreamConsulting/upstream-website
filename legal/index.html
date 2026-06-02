@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal &amp; Privacy Notice | Upstream Consulting</title>
+  <meta name="description" content="Legal and privacy notice for Upstream Consulting Solutions Inc.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/behind-the-work/">Behind the Work</a></li>
+        <li><a href="/ai-integration/">AI Integration</a></li>
+        <li><a href="/red/">Real Estate Dev</a></li>
+        <li><a href="/system-development/">Systems Dev</a></li>
+        <li><a href="/sample-builds/">Sample Builds</a></li>
+        <li><a href="/ways-to-work/">Ways to Work</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Legal &amp; Privacy Notice</h1>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Legal Content -->
+  <section>
+    <div class="container" style="max-width:800px;">
+
+      <h3 style="margin-bottom:.75rem;">Company</h3>
+      <p>Upstream Consulting Solutions Inc., incorporated in British Columbia, Canada.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Content Usage</h3>
+      <p>This site permits viewing, sharing, and linking for personal or business purposes. You cannot copy, reproduce, or redistribute materials, tools, or templates without prior written consent.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Data Handling</h3>
+      <p>This site does not collect personal information unless you voluntarily submit it through our contact form. Submitted data (name, email, company details) is used only to respond to inquiries and is not sold or shared with third parties.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Information Disclaimer</h3>
+      <p>Nothing on this site should be taken as legal, financial, engineering, or professional advice. We make reasonable accuracy efforts but provide no guarantees about completeness or currency of information.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Liability</h3>
+      <p>Upstream Consulting Solutions Inc. disclaims responsibility for damages resulting from website use or content reliance, including indirect or consequential harm.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">External Links</h3>
+      <p>We accept no responsibility for third-party websites linked from this site.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Updates</h3>
+      <p>This notice was last updated April 2026 and may be modified periodically.</p>
+
+      <h3 style="margin-top:2.5rem; margin-bottom:.75rem;">Contact</h3>
+      <p><a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a></p>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Upstream Consulting</h4>
+          <p><a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a></p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <a href="/">Home</a>
+          <a href="/behind-the-work/">Behind the Work</a>
+          <a href="/ai-integration/">AI Integration</a>
+          <a href="/red/">Real Estate Dev</a>
+          <a href="/system-development/">Systems Dev</a>
+          <a href="/sample-builds/">Sample Builds</a>
+          <a href="/ways-to-work/">Ways to Work</a>
+        </div>
+        <div class="footer-col">
+          <h4>More</h4>
+          <a href="/contact/">Contact</a>
+          <a href="/faqs/">FAQ</a>
+          <a href="/legal/">Legal</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; Upstream Consulting Solutions Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

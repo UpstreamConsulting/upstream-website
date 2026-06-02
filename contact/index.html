@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Upstream Consulting | Book a Session</title>
+  <meta name="description" content="Get in touch with Upstream Consulting. Book a 60-minute executive intake session or send us a message.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/behind-the-work/">Behind the Work</a></li>
+        <li><a href="/ai-integration/">AI Integration</a></li>
+        <li><a href="/red/">Real Estate Dev</a></li>
+        <li><a href="/system-development/">Systems Dev</a></li>
+        <li><a href="/sample-builds/">Sample Builds</a></li>
+        <li><a href="/ways-to-work/">Ways to Work</a></li>
+        <li><a href="/contact/" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Connect With Our Team</h1>
+      <p>Let's start the conversation</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Contact Section -->
+  <section>
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Left: Contact Form -->
+        <div>
+          <h2 style="margin-bottom:1.5rem;">Send Us a Message</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="business">Business Name</label>
+              <input type="text" id="business" name="business">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="description">Project Type &amp; Description</label>
+              <textarea id="description" name="description" rows="6" placeholder="Tell us about your project or what you're looking to solve..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p style="margin-top:.75rem; font-size:.85rem; color:var(--gray-600);">This opens your email app with the message pre-filled — nothing is stored on this site.</p>
+          </form>
+        </div>
+
+        <!-- Right: Book Directly -->
+        <div style="background:var(--off-white); border-radius:var(--radius); padding:40px;">
+          <h2 style="margin-bottom:1rem;">Prefer to book directly?</h2>
+          <p style="margin-bottom:1.5rem; color:var(--gray-600);">Schedule a 60-minute executive intake session. Six questions about your operations — no pitch, just diagnostics.</p>
+          <a href="https://cal.com/upstream-consulting/60min" target="_blank" rel="noopener" class="btn btn-primary" style="display:block; text-align:center; font-size:1.1rem; padding:18px 32px; margin-bottom:1.5rem;">Book a Session</a>
+          <p style="text-align:center;">
+            <strong>Email:</strong> <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Upstream Consulting</h4>
+          <p><a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a></p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <a href="/">Home</a>
+          <a href="/behind-the-work/">Behind the Work</a>
+          <a href="/ai-integration/">AI Integration</a>
+          <a href="/red/">Real Estate Dev</a>
+          <a href="/system-development/">Systems Dev</a>
+          <a href="/sample-builds/">Sample Builds</a>
+          <a href="/ways-to-work/">Ways to Work</a>
+        </div>
+        <div class="footer-col">
+          <h4>More</h4>
+          <a href="/contact/">Contact</a>
+          <a href="/faqs/">FAQ</a>
+          <a href="/legal/">Legal</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; Upstream Consulting Solutions Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Contact form -> pre-filled email (no backend)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = id => document.getElementById(id).value.trim();
+      const subject = encodeURIComponent('Website inquiry — ' + (v('business') || v('name')));
+      const body = encodeURIComponent(
+        'Name: ' + v('name') + '\n' +
+        'Email: ' + v('email') + '\n' +
+        'Business: ' + v('business') + '\n' +
+        'Phone: ' + v('phone') + '\n\n' +
+        v('description')
+      );
+      window.location.href = 'mailto:levi@upstreamconsulting.ca?subject=' + subject + '&body=' + body;
+    });
+  </script>
+
+</body>
+</html>
