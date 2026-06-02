@@ -5,15 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Real Estate Development Portfolio | Upstream Consulting</title>
   <meta name="description" content="15 years of high-stakes retail, hospitality, and infrastructure projects. From flagship retail on Michigan Avenue to independent restaurants in Vancouver.">
+  <link rel="canonical" href="https://upstreamconsulting.ca/red/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Real Estate Development Portfolio | Upstream Consulting">
+  <meta property="og:description" content="15 years of high-stakes retail, hospitality, and infrastructure projects. From flagship retail on Michigan Avenue to independent restaurants in Vancouver.">
+  <meta property="og:url" content="https://upstreamconsulting.ca/red/">
+  <meta property="og:image" content="https://upstreamconsulting.ca/images/logo-invert-small.png">
+  <meta property="og:site_name" content="Upstream Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Real Estate Development Portfolio | Upstream Consulting">
+  <meta name="twitter:description" content="15 years of high-stakes retail, hospitality, and infrastructure projects. From flagship retail on Michigan Avenue to independent restaurants in Vancouver.">
+
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Navigation -->
-  <nav class="nav" id="nav">
+  <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
@@ -40,7 +57,7 @@
   <div class="section-divider"></div>
 
   <!-- Clarity Section -->
-  <section class="alt-bg">
+  <section class="alt-bg" id="main" tabindex="-1">
     <div class="container" style="text-align:center;">
       <h2>Clarity in Every Space</h2>
       <p class="section-sub">Strategic project management. Structured, scalable results.</p>
@@ -65,7 +82,7 @@
         <div class="card">
           <div class="portfolio-img" style="background-image:url('/images/render-soho.jpg');"></div>
           <div class="card-body">
-            <h3>Aritzia — SoHo, New York</h3>
+            <h3>Aritzia</h3>
             <p class="card-italic">Architectural Project Manager</p>
           </div>
         </div>
@@ -74,7 +91,7 @@
         <div class="card">
           <div class="portfolio-img" style="background-image:url('/images/render-shipyards.jpg');"></div>
           <div class="card-body">
-            <h3>Joey, Shipyards, North Vancouver</h3>
+            <h3>JOEY</h3>
             <p class="card-italic">Project Manager</p>
           </div>
         </div>
@@ -89,15 +106,6 @@
         </div>
 
         <!-- Card 5 -->
-        <div class="card">
-          <div class="portfolio-img" style="background-image:url('/images/render-atlas.jpg');"></div>
-          <div class="card-body">
-            <h3>Atlas Steak &amp; Fish, Burnaby</h3>
-            <p class="card-italic">Project Manager</p>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
         <div class="card">
           <div class="portfolio-img" style="background-image:url('/images/render-mb.jpg');"></div>
           <div class="card-body">
@@ -128,7 +136,7 @@
           <p style="font-size: .9rem; color: var(--gold); font-weight: 600;">
             — Aritzia Letter of Recognition
           </p>
-          <p style="font-size: .85rem; color: rgba(255,255,255,.5);">
+          <p style="font-size: .85rem; color: rgba(255,255,255,.68);">
             CEO, EVP &nbsp;|&nbsp; Scope: Architectural Project Manager
           </p>
         </blockquote>
@@ -140,7 +148,7 @@
           <p style="font-size: .9rem; color: var(--gold); font-weight: 600;">
             — Aritzia Letter of Reference
           </p>
-          <p style="font-size: .85rem; color: rgba(255,255,255,.5);">
+          <p style="font-size: .85rem; color: rgba(255,255,255,.68);">
             VP Architecture &nbsp;|&nbsp; Scope: Sr. Manager Technical Development
           </p>
         </blockquote>
@@ -192,13 +200,15 @@
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
+      const open = hamburger.classList.toggle('open');
       navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
     const backToTop = document.getElementById('backToTop');

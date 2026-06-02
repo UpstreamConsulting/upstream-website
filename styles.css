@@ -2,7 +2,7 @@
    Upstream Consulting — Shared Styles
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=Aboreto&family=Gotu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Gotu&family=Syne:wght@400;500;600;700;800&display=swap');
 
 /* --- Reset & Base --- */
 *, *::before, *::after {
@@ -14,12 +14,12 @@
 :root {
   --white: #ffffff;
   --off-white: #f5f5f0;
-  --charcoal: #1a1a2e;
-  --gold: #d4a574;
-  --teal: #4a9b8e;
+  --charcoal: #1D1D1F;
+  --gold: #D8A36B;
+  --teal: #5B7A5E;
   --gray-100: #f0f0ec;
   --gray-200: #e0e0da;
-  --gray-400: #999;
+  --gray-400: #767676;
   --gray-600: #666;
   --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
   --shadow-md: 0 4px 12px rgba(0,0,0,.1);
@@ -35,7 +35,7 @@ html {
 }
 
 body {
-  font-family: 'Gotu', 'Inter', system-ui, sans-serif;
+  font-family: 'Gotu', Georgia, serif;
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--charcoal);
@@ -44,8 +44,28 @@ body {
 }
 
 img { max-width: 100%; display: block; }
-a { color: var(--teal); text-decoration: none; transition: color var(--transition); }
+a { color: #8A5F4F; text-decoration: none; transition: color var(--transition); }
 a:hover { color: var(--gold); }
+
+/* Visible keyboard focus ring */
+:focus-visible { outline: 2px solid #A57663; outline-offset: 2px; }
+
+/* Skip-to-content link — off-screen until focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 12px 20px;
+  background: var(--charcoal);
+  color: var(--off-white);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus {
+  left: 0;
+  color: var(--off-white);
+}
 
 .container {
   width: 100%;
@@ -628,17 +648,19 @@ section {
   vertical-align: middle;
   font-size: .7rem;
   font-weight: 700;
-  color: white;
+  color: var(--charcoal);
+  background: var(--gray-100);
   text-align: center;
   line-height: 28px;
 }
-.platform-icon.procore { background: #f47e20; }
-.platform-icon.plangrid { background: #0073ea; }
-.platform-icon.sharepoint { background: #038387; }
-.platform-icon.m365 { background: #d83b01; }
-.platform-icon.financial { background: #107c10; }
-.platform-icon.hr { background: #5c2d91; }
-.platform-icon.leadgen { background: #0078d4; }
+/* Single neutral treatment — vendor colours removed for a calmer, on-brand grid */
+.platform-icon.procore,
+.platform-icon.plangrid,
+.platform-icon.sharepoint,
+.platform-icon.m365,
+.platform-icon.financial,
+.platform-icon.hr,
+.platform-icon.leadgen { background: var(--gray-100); color: var(--charcoal); }
 
 /* --- Contact Grid --- */
 .contact-grid {

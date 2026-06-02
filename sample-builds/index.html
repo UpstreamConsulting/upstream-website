@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sample Builds | Upstream Consulting</title>
   <meta name="description" content="A gallery of working AI systems built by Upstream Consulting — accounting, email triage, document review, audits, and more. Real builds, running today.">
+  <link rel="canonical" href="https://upstreamconsulting.ca/sample-builds/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sample Builds | Upstream Consulting">
+  <meta property="og:description" content="A gallery of working AI systems built by Upstream Consulting — accounting, email triage, document review, audits, and more. Real builds, running today.">
+  <meta property="og:url" content="https://upstreamconsulting.ca/sample-builds/">
+  <meta property="og:image" content="https://upstreamconsulting.ca/images/logo-invert-small.png">
+  <meta property="og:site_name" content="Upstream Consulting">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="/styles.css">
   <style>
     /* ============================================
@@ -104,7 +112,7 @@
       font-weight: 500;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--gray-400);
+      color: var(--gray-600);
     }
 
     /* ---- Modal ---- */
@@ -198,11 +206,13 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Navigation -->
-  <nav class="nav" id="nav">
+  <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
@@ -229,7 +239,7 @@
   <div class="section-divider"></div>
 
   <!-- Build Gallery -->
-  <section>
+  <section id="main">
     <div class="container">
 
       <!-- Money & Books -->
@@ -489,13 +499,15 @@
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
+      const isOpen = hamburger.classList.toggle('open');
       navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
     const backToTop = document.getElementById('backToTop');
@@ -527,6 +539,7 @@
         modalBadge.hidden = true;
       }
       backdrop.hidden = false;
+      setSiblingsInert(true);
       // next frame so the transition runs
       requestAnimationFrame(() => backdrop.classList.add('open'));
       modalClose.focus();
@@ -534,6 +547,7 @@
 
     function closeModal() {
       backdrop.classList.remove('open');
+      setSiblingsInert(false);
       const onEnd = () => {
         backdrop.hidden = true;
         backdrop.removeEventListener('transitionend', onEnd);
@@ -541,6 +555,31 @@
       backdrop.addEventListener('transitionend', onEnd);
       if (lastFocused) lastFocused.focus();
     }
+
+    // Make all body content except the modal inert while it's open
+    function setSiblingsInert(on) {
+      Array.from(document.body.children).forEach(el => {
+        if (el === backdrop) return;
+        if (on) el.setAttribute('inert', '');
+        else el.removeAttribute('inert');
+      });
+    }
+
+    // Focus trap: cycle Tab among the modal's focusable elements
+    backdrop.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !backdrop.classList.contains('open')) return;
+      const focusable = backdrop.querySelectorAll('button, a[href]');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
 
     document.querySelectorAll('.build-card').forEach(card => {
       card.addEventListener('click', () => openModal(card));

@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ways to Work with Upstream</title>
+<meta name="description" content="How to start with Upstream and what it costs — from a single $250 working session to an org-wide AI rollout. Pick the entry point that fits where you are.">
+<link rel="canonical" href="https://upstreamconsulting.ca/ways-to-work/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ways to Work with Upstream">
+<meta property="og:description" content="How to start with Upstream and what it costs — from a single $250 working session to an org-wide AI rollout. Pick the entry point that fits where you are.">
+<meta property="og:url" content="https://upstreamconsulting.ca/ways-to-work/">
+<meta property="og:image" content="https://upstreamconsulting.ca/images/logo-invert-small.png">
+<meta property="og:site_name" content="Upstream Consulting">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+
 <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Gotu&family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -335,6 +349,43 @@ body {
    Rules: structural + layout only.
    Forbidden: hex colors · font-family · spacing scale redefs
    ══════════════════════════════════════════════════════════ */
+
+/* Heading-semantics resets — these classes are now h2/h3 (was span/div).
+   Neutralize UA margins + font defaults so rendering stays pixel-identical;
+   each class rule below already fully specifies font + color. */
+h2.sector-eyebrow,
+h3.gate-title,
+h3.range-name,
+h3.offer-name {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Accessible focus ring — Editorial accent */
+:focus-visible {
+  outline: 2px solid #A57663;
+  outline-offset: 2px;
+}
+
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  color: var(--fg-1);
+  font-family: var(--font-button);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: var(--sp-3);
+  top: var(--sp-3);
+}
 
 /* Signature mesh orbs — editorial accents, soft depth behind the cream */
 .bg-mesh {
@@ -883,8 +934,8 @@ body {
 .fine-print li {
   position: relative;
   padding-left: var(--sp-3);
-  color: var(--fg-muted);
-  font-size: 10px;
+  color: #3D3D3D;
+  font-size: 12px;
   line-height: 1.55;
   margin-bottom: 3px;
 }
@@ -904,6 +955,8 @@ body {
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <!-- Signature mesh-orb backdrop -->
 <div class="bg-mesh" aria-hidden="true">
   <div class="orb orb-1"></div>
@@ -916,7 +969,7 @@ body {
      HEADER
      ═══════════════════════════════════════════════════════ -->
 <div class="header">
-  <img src="/images/logo-invert.png" alt="Upstream Consulting" class="header-logo">
+  <img src="/images/logo-invert.png" alt="Upstream Consulting" class="header-logo" width="39" height="30" loading="lazy">
   <div class="eyebrow">Upstream Consulting — AI Integration</div>
   <h1>Ways to Work<br>with Upstream</h1>
   <div class="header-sub">How to start, and what it costs. The pricing companion to our AI Integration service line — pick the entry point that fits where you are.</div>
@@ -925,34 +978,35 @@ body {
 <!-- ═══════════════════════════════════════════════════════
      CONTENT
      ═══════════════════════════════════════════════════════ -->
+<main id="main">
 <div class="content">
 
-  <div class="intro-links">
+  <nav class="intro-links" aria-label="Site links">
     <a href="/ai-integration/">What we do</a>
     <span class="sep">·</span>
     <a href="/">Home</a>
-  </div>
+  </nav>
 
   <p class="page-intro">
     Most operators don't want a platform. They want one stubborn workflow handled, end to end. This page lays out the ways to bring us in — from a single working session to an org-wide rollout. The order below climbs with how ready you are to commit.
   </p>
 
   <!-- Self-select — subtle three-anchor line, no heavy nav chrome -->
-  <div class="self-select">
+  <nav class="self-select" aria-label="Pick an entry point">
     <span class="ss-lead">Pick the entry point that fits where you are:</span>
     <a href="#sector-1">Just exploring</a>
     <span class="ss-sep">·</span>
     <a href="#sector-2">Something specific</a>
     <span class="ss-sep">·</span>
     <a href="#sector-3">The whole company</a>
-  </div>
+  </nav>
 
   <!-- ═══════════════════════════════════════════════════
        SECTOR 1 — QUICK & EASY (light, two offerings)
        ═══════════════════════════════════════════════════ -->
   <section class="sector" id="sector-1">
     <div class="sector-eyebrow-row">
-      <span class="sector-eyebrow">Quick &amp; Easy</span>
+      <h2 class="sector-eyebrow">Quick &amp; Easy</h2>
       <span class="sector-pill">Sector 1 — Start Small</span>
     </div>
     <div class="sector-tagline">"I just want some help, or to explore."</div>
@@ -969,7 +1023,7 @@ body {
         </span>
         <div class="offer-body">
           <span class="offer-tag">One-time</span>
-          <div class="offer-name">Working Session</div>
+          <h3 class="offer-name">Working Session</h3>
           <div class="offer-desc">Orientation plus an honest read on fit — we sit down, look at the work, and tell you straight whether there's a there there.</div>
           <p class="offer-eligibility"><strong>One-time only — your first sit-down with us.</strong> Already had one? Continued help runs as Hourly / On-Demand.</p>
         </div>
@@ -989,7 +1043,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </span>
         <div class="offer-body">
-          <div class="offer-name">Hourly / On-Demand</div>
+          <h3 class="offer-name">Hourly / On-Demand</h3>
           <div class="offer-desc">Ad-hoc help, on your terms. You set the direction; we plug in where you need a hand. Open engagement — no upfront fee, billed for the hours you actually use.</div>
         </div>
         <div class="offer-price">$250<span style="font-weight:400;">/hr</span> <span class="meta">1 hour minimum · + tax</span></div>
@@ -1010,7 +1064,7 @@ body {
        ═══════════════════════════════════════════════════ -->
   <section class="sector" id="sector-2">
     <div class="sector-eyebrow-row">
-      <span class="sector-eyebrow">You Know What You Want</span>
+      <h2 class="sector-eyebrow">You Know What You Want</h2>
       <span class="sector-pill">Sector 2 — Project Cycle</span>
     </div>
     <div class="sector-tagline">"I have a specific thing I want built."</div>
@@ -1029,7 +1083,7 @@ body {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
           </span>
         </div>
-        <div class="gate-title">Intake</div>
+        <h3 class="gate-title">Intake</h3>
         <div class="gate-price">$500 <span class="meta">fixed — 2 hours · + tax</span></div>
         <p class="gate-desc">We map the scope and surface the candidate workflows worth building.</p>
       </div>
@@ -1047,7 +1101,7 @@ body {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M12 17v4"/><path d="M8 21h8"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
           </span>
         </div>
-        <div class="gate-title">Demo</div>
+        <h3 class="gate-title">Demo</h3>
         <div class="gate-price">$1,000 <span class="meta">fixed deliverable · + tax</span></div>
         <p class="gate-desc">A working demo plus a build-out plan you keep — fixed scope, not billed by the hour.</p>
       </div>
@@ -1065,7 +1119,7 @@ body {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
           </span>
         </div>
-        <div class="gate-title">Build &amp; Install</div>
+        <h3 class="gate-title">Build &amp; Install</h3>
         <div class="gate-price">Quoted <span class="meta">per item · + tax</span></div>
         <p class="gate-desc">We build it, teach your team to run it, and install it where the work happens.</p>
       </div>
@@ -1116,7 +1170,7 @@ body {
        ═══════════════════════════════════════════════════ -->
   <section class="sector" id="sector-3">
     <div class="sector-eyebrow-row">
-      <span class="sector-eyebrow">Get the Org On Board</span>
+      <h2 class="sector-eyebrow">Get the Org On Board</h2>
       <span class="sector-pill">Sector 3 — Whole Company</span>
     </div>
     <div class="sector-tagline">"We need the whole company on this."</div>
@@ -1140,7 +1194,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg>
         </span>
         <div class="range-main">
-          <div class="range-name">Intake / Current-State Map</div>
+          <h3 class="range-name">Intake / Current-State Map</h3>
           <div class="range-desc">Discovery, audit, and an action plan for where AI actually earns its keep.</div>
         </div>
         <div class="range-price">$2,000–4,000 <span class="meta">+ tax</span></div>
@@ -1151,7 +1205,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
         </span>
         <div class="range-main">
-          <div class="range-name">Training</div>
+          <h3 class="range-name">Training</h3>
           <div class="range-desc">Team enablement — getting your people confident and productive with the tools.</div>
         </div>
         <div class="range-price">$1,500–3,500 <span class="meta">+ tax</span></div>
@@ -1162,7 +1216,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>
         </span>
         <div class="range-main">
-          <div class="range-name">Setup</div>
+          <h3 class="range-name">Setup</h3>
           <div class="range-desc">Licensing, install, and configuration — the plumbing done right the first time.</div>
         </div>
         <div class="range-price">$2,000–5,000 <span class="meta">+ tax</span></div>
@@ -1173,7 +1227,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
         </span>
         <div class="range-main">
-          <div class="range-name">Orchestration</div>
+          <h3 class="range-name">Orchestration</h3>
           <div class="range-desc">We build the system inside your own tools, so it runs where the work already lives.</div>
         </div>
         <div class="range-price">from $10,000 <span class="meta">scoped, one-time · + tax</span></div>
@@ -1184,7 +1238,7 @@ body {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
         </span>
         <div class="range-main">
-          <div class="range-name">Maintenance</div>
+          <h3 class="range-name">Maintenance</h3>
           <div class="range-desc">Quarterly check-ins plus tuning — keeping the system sharp as the work changes.</div>
         </div>
         <div class="range-price">$1,500–4,000 <span class="meta">/ quarter · + tax</span></div>
@@ -1215,13 +1269,70 @@ body {
     <li>No standing discounts or credits.</li>
   </ul>
 </div>
+</main>
 
 <div class="footer">
-  <img src="/images/logo-symbol.png" alt="" class="footer-logo">
+  <img src="/images/logo-symbol.png" alt="" class="footer-logo" width="30" height="14" loading="lazy">
   <span class="accent">Upstream Consulting</span>
   &nbsp;·&nbsp; Ways to Work — AI Integration
   &nbsp;·&nbsp; 2026
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "AI integration consulting",
+  "url": "https://upstreamconsulting.ca/ways-to-work/",
+  "areaServed": "British Columbia, Canada",
+  "provider": {
+    "@type": "Organization",
+    "name": "Upstream Consulting",
+    "url": "https://upstreamconsulting.ca"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Ways to Work with Upstream",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Working Session",
+        "url": "https://upstreamconsulting.ca/ways-to-work/",
+        "price": "250",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Hourly / On-Demand",
+        "url": "https://upstreamconsulting.ca/ways-to-work/",
+        "price": "250",
+        "priceCurrency": "CAD",
+        "unitText": "HUR"
+      },
+      {
+        "@type": "Offer",
+        "name": "Intake Session",
+        "url": "https://upstreamconsulting.ca/ways-to-work/",
+        "price": "500",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Working Demo",
+        "url": "https://upstreamconsulting.ca/ways-to-work/",
+        "price": "1000",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Build-Out",
+        "url": "https://upstreamconsulting.ca/ways-to-work/",
+        "priceCurrency": "CAD"
+      }
+    ]
+  }
+}
+</script>
 
 </body>
 </html>

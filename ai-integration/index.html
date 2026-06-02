@@ -5,15 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Integration for Brick &amp; Mortar Operators | Upstream Consulting</title>
   <meta name="description" content="Person-by-person AI integration for brick and mortar operators. Structured rollouts, enterprise security, and ongoing optimization — not generic Copilot deployments.">
+  <link rel="canonical" href="https://upstreamconsulting.ca/ai-integration/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Integration for Brick &amp; Mortar Operators | Upstream Consulting">
+  <meta property="og:description" content="Person-by-person AI integration for brick and mortar operators. Structured rollouts, enterprise security, and ongoing optimization — not generic Copilot deployments.">
+  <meta property="og:url" content="https://upstreamconsulting.ca/ai-integration/">
+  <meta property="og:image" content="https://upstreamconsulting.ca/images/logo-invert-small.png">
+  <meta property="og:site_name" content="Upstream Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Integration for Brick &amp; Mortar Operators | Upstream Consulting">
+  <meta name="twitter:description" content="Person-by-person AI integration for brick and mortar operators. Structured rollouts, enterprise security, and ongoing optimization — not generic Copilot deployments.">
+
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Navigation -->
-  <nav class="nav" id="nav">
+  <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
@@ -34,7 +51,7 @@
     <div class="container">
       <h1>Your Operations. Made Intelligent.</h1>
       <p>Your team is already using AI. The question is whether it's structured, secure, and actually making them better at their jobs — or whether it's a collection of personal ChatGPT accounts leaking your IP into training data.</p>
-      <p>Generic rollouts fail. Microsoft's own Copilot sits at a 3.3% adoption rate among commercial users. Two weeks — that's how long the average employee uses a generic AI tool before they abandon it.</p>
+      <p>Generic rollouts fail. Most AI tools get rolled out and quietly ignored — the license gets bought, the tool gets opened once, and then the team drifts back to how they always worked.</p>
       <p>We do it differently.</p>
     </div>
   </section>
@@ -42,7 +59,7 @@
   <div class="section-divider"></div>
 
   <!-- Three Problems -->
-  <section class="section">
+  <section class="section" id="main" tabindex="-1">
     <div class="container">
       <h2>Three Problems Nobody Wants to Talk About</h2>
       <div class="cards-grid-3" style="margin-top: 2.5rem;">
@@ -54,7 +71,7 @@
         </div>
         <div class="card phase-card">
           <div class="card-body">
-            <p>Buying licenses isn't a strategy. Without individual intake — actually learning how each person works — you're guessing at what tools to deploy and how to configure them. Guessing produces the 3.3% adoption rate.</p>
+            <p>Buying licenses isn't a strategy. Without individual intake — actually learning how each person works — you're guessing at what tools to deploy and how to configure them. Guessing is what produces the tool nobody opens twice.</p>
           </div>
           <div class="card-label">No Process</div>
         </div>
@@ -142,12 +159,12 @@
       <p style="max-width:680px; margin:1.5rem auto;">Every hour of AI integration work multiplies the efficiency of each employee it touches. This isn't a cost — it's a force multiplier across your entire operation.</p>
       <div class="stats-row" style="margin-top:2rem;">
         <div class="stat">
-          <div class="stat-number">10x</div>
-          <div class="stat-label">Efficiency multiplier per employee touched</div>
+          <div class="stat-number" style="font-size:1.6rem;">Compounding</div>
+          <div class="stat-label">Leverage on every workflow it touches</div>
         </div>
         <div class="stat">
-          <div class="stat-number">75 min</div>
-          <div class="stat-label">Saved per day in Phase 1 alone</div>
+          <div class="stat-number" style="font-size:1.6rem;">Daily</div>
+          <div class="stat-label">Measurable time back, every single day</div>
         </div>
         <div class="stat">
           <div class="stat-number">6 weeks</div>
@@ -275,18 +292,15 @@
   <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
 
   <script>
-    // Nav scroll shadow
     const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 10);
-    });
 
     // Hamburger toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
+      const open = hamburger.classList.toggle('open');
       navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 
     // Close menu on link click (mobile)
@@ -294,17 +308,21 @@
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
 
     // Back to top
     const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      backToTop.classList.toggle('visible', window.scrollY > 400);
-    });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // Single scroll listener — nav shadow + back-to-top visibility
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
   </script>
 
 </body>

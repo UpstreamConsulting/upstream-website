@@ -4,16 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Upstream Consulting | Book a Session</title>
-  <meta name="description" content="Get in touch with Upstream Consulting. Book a 60-minute executive intake session or send us a message.">
+  <meta name="description" content="Get in touch with Upstream Consulting. Book a 60-minute executive intake session — six questions about your operations, no pitch — or send us a message.">
+  <link rel="canonical" href="https://upstreamconsulting.ca/contact/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact Upstream Consulting | Book a Session">
+  <meta property="og:description" content="Get in touch with Upstream Consulting. Book a 60-minute executive intake session — six questions about your operations, no pitch — or send us a message.">
+  <meta property="og:url" content="https://upstreamconsulting.ca/contact/">
+  <meta property="og:image" content="https://upstreamconsulting.ca/images/logo-invert-small.png">
+  <meta property="og:site_name" content="Upstream Consulting">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <!-- Navigation -->
-  <nav class="nav" id="nav">
+  <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
@@ -40,7 +50,7 @@
   <div class="section-divider"></div>
 
   <!-- Contact Section -->
-  <section>
+  <section id="main">
     <div class="container">
       <div class="contact-grid">
 
@@ -70,6 +80,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Send Message</button>
             <p style="margin-top:.75rem; font-size:.85rem; color:var(--gray-600);">This opens your email app with the message pre-filled — nothing is stored on this site.</p>
+            <p id="formConfirm" hidden aria-live="polite" style="margin-top:.75rem; font-size:.85rem; color:var(--gray-600);">Your email app should open with the message pre-filled. If it doesn't, email <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a> directly.</p>
           </form>
         </div>
 
@@ -129,13 +140,15 @@
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
+      const isOpen = hamburger.classList.toggle('open');
       navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
     const backToTop = document.getElementById('backToTop');
@@ -160,6 +173,7 @@
         v('description')
       );
       window.location.href = 'mailto:levi@upstreamconsulting.ca?subject=' + subject + '&body=' + body;
+      document.getElementById('formConfirm').hidden = false;
     });
   </script>
 
