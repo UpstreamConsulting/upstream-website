@@ -308,7 +308,8 @@ p + p { margin-top: 1rem; }
   height: 46px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: center;
+  gap: 36px;
 }
 .subnav-label {
   font-family: 'Syne', sans-serif;
