@@ -632,5 +632,26 @@
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 })();
 </script>
+<script>
+(function(){
+  function align(){
+    var inner = document.querySelector('.subnav-inner');
+    if (!inner) return;
+    if (window.innerWidth <= 900) { inner.style.transform = 'none'; return; }
+    var ai = document.querySelector('#navLinks a[href="/ai-integration/"]');
+    var active = document.querySelector('.subnav a.active');
+    if (!ai || !active) return;
+    inner.style.transform = 'none';
+    var aiR = ai.getBoundingClientRect();
+    var acR = active.getBoundingClientRect();
+    var dx = (aiR.left + aiR.width / 2) - (acR.left + acR.width / 2);
+    inner.style.transform = 'translateX(' + Math.round(dx) + 'px)';
+  }
+  window.addEventListener('load', align);
+  window.addEventListener('resize', align);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+  align();
+})();
+</script>
 </body>
 </html>
