@@ -126,7 +126,7 @@ body {
    ══════════════════════════════════════════════════════════ */
 .header {
   background: var(--neutral-inverse);
-  padding: var(--sp-7) var(--sp-7) var(--sp-6);
+  padding: calc(64px + var(--sp-6)) var(--sp-7) var(--sp-6);
   position: relative;
   overflow: hidden;
 }
@@ -340,7 +340,7 @@ body {
    RESPONSIVE
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .header  { padding: var(--sp-6) var(--sp-4) var(--sp-5); }
+  .header  { padding: calc(64px + var(--sp-4)) var(--sp-4) var(--sp-5); }
   .content { padding: var(--sp-5) var(--sp-4); }
 }
 
@@ -949,11 +949,102 @@ body {
   .cycle-link { transform: rotate(90deg); justify-self: center; margin: var(--sp-1) 0; }
 }
 
+/* ══════════════════════════════════════════════════════════
+   SITE NAV BAR — ported site chrome (page tokens, no external CSS)
+   ══════════════════════════════════════════════════════════ */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(29,29,31,0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.site-nav-inner {
+  max-width: var(--max-width); margin: 0 auto; padding: 0 var(--gutter);
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+}
+.site-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.site-nav-logo img { height: 28px; width: auto; }
+.site-nav-logo span {
+  font-family: var(--font-button); font-weight: 700; font-size: 1rem;
+  color: #fff; letter-spacing: -0.01em;
+}
+.site-nav-links { list-style: none; display: flex; gap: 22px; align-items: center; }
+.site-nav-links a {
+  color: rgba(255,255,255,0.78); font-family: var(--font-button);
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.02em;
+  text-decoration: none; border: 0; padding-bottom: 2px;
+  transition: color var(--transition-fast);
+}
+.site-nav-links a:hover { color: #fff; }
+.site-nav-links a.active { color: var(--accent-secondary); }
+.site-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.site-hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: transform var(--transition-fast), opacity var(--transition-fast); }
+.site-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-hamburger.open span:nth-child(2) { opacity: 0; }
+.site-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ══════════════════════════════════════════════════════════
+   SITE FOOTER — 4-column, ported site chrome
+   ══════════════════════════════════════════════════════════ */
+.site-footer { background: var(--fg-1); padding: var(--sp-8) var(--gutter) var(--sp-5); }
+.site-footer-grid {
+  max-width: var(--max-width); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-6);
+}
+.site-footer-col h4 {
+  font-family: var(--font-button); color: #fff; font-size: 0.78rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--sp-3);
+}
+.site-footer-col a, .site-footer-col p {
+  display: block; color: rgba(255,255,255,0.7); text-decoration: none;
+  font-size: 0.85rem; line-height: 1.6; padding: 2px 0;
+}
+.site-footer-col a:hover { color: var(--accent-secondary); }
+.site-footer-bottom {
+  max-width: var(--max-width); margin: var(--sp-6) auto 0; padding-top: var(--sp-5);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.75rem; color: rgba(255,255,255,0.5);
+}
+@media (max-width: 768px) {
+  .site-hamburger { display: flex; }
+  .site-nav-links {
+    position: absolute; top: 64px; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start;
+    background: rgba(29,29,31,0.98); padding: var(--sp-5) var(--gutter); gap: var(--sp-4);
+    transform: translateY(-150%); transition: transform var(--transition-base);
+  }
+  .site-nav-links.open { transform: translateY(0); }
+  .site-footer-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+}
+
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Site navigation -->
+<nav class="site-nav" id="nav" aria-label="Main navigation">
+  <div class="site-nav-inner">
+    <a href="/" class="site-nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
+    <button class="site-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="site-nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/behind-the-work/">Behind the Work</a></li>
+      <li><a href="/ai-integration/">AI Integration</a></li>
+      <li><a href="/red/">Real Estate Dev</a></li>
+      <li><a href="/system-development/">Systems Dev</a></li>
+      <li><a href="/sample-builds/">Sample Builds</a></li>
+      <li><a href="/ways-to-work/" class="active">Ways to Work</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- Signature mesh-orb backdrop -->
 <div class="bg-mesh" aria-hidden="true">
@@ -978,22 +1069,6 @@ body {
      ═══════════════════════════════════════════════════════ -->
 <main id="main">
 <div class="content">
-
-  <nav class="intro-links" aria-label="Site links">
-    <a href="/">Home</a>
-    <span class="sep">·</span>
-    <a href="/behind-the-work/">Behind the Work</a>
-    <span class="sep">·</span>
-    <a href="/ai-integration/">AI Integration</a>
-    <span class="sep">·</span>
-    <a href="/red/">Real Estate Dev</a>
-    <span class="sep">·</span>
-    <a href="/system-development/">Systems Dev</a>
-    <span class="sep">·</span>
-    <a href="/sample-builds/">Sample Builds</a>
-    <span class="sep">·</span>
-    <a href="/contact/">Contact</a>
-  </nav>
 
   <p class="page-intro">
     Most operators don't want a platform. They want one stubborn workflow handled, end to end. This page lays out the ways to bring us in — from a single working session to an org-wide rollout. The order below climbs with how ready you are to commit.
@@ -1279,12 +1354,37 @@ body {
 </div>
 </main>
 
-<div class="footer">
-  <img src="/images/logo-symbol.png" alt="" class="footer-logo" width="30" height="14" loading="lazy">
-  <span class="accent">Upstream Consulting</span>
-  &nbsp;·&nbsp; Ways to Work — AI Integration
-  &nbsp;·&nbsp; 2026
-</div>
+<footer class="site-footer">
+  <div class="site-footer-grid">
+    <div class="site-footer-col">
+      <h4>Upstream Consulting</h4>
+      <p><a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a></p>
+    </div>
+    <div class="site-footer-col">
+      <h4>Pages</h4>
+      <a href="/">Home</a>
+      <a href="/behind-the-work/">Behind the Work</a>
+      <a href="/ai-integration/">AI Integration</a>
+      <a href="/red/">Real Estate Dev</a>
+      <a href="/system-development/">Systems Dev</a>
+      <a href="/sample-builds/">Sample Builds</a>
+      <a href="/ways-to-work/">Ways to Work</a>
+    </div>
+    <div class="site-footer-col">
+      <h4>More</h4>
+      <a href="/contact/">Contact</a>
+      <a href="/faqs/">FAQ</a>
+      <a href="/legal/">Legal</a>
+    </div>
+    <div class="site-footer-col">
+      <h4>Get in Touch</h4>
+      <a href="mailto:levi@upstreamconsulting.ca">levi@upstreamconsulting.ca</a>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    &copy; Upstream Consulting Solutions Inc. All rights reserved.
+  </div>
+</footer>
 
 <script type="application/ld+json">
 {
@@ -1340,6 +1440,23 @@ body {
     ]
   }
 }
+</script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>
 
 </body>
