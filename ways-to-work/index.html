@@ -126,7 +126,7 @@ body {
    ══════════════════════════════════════════════════════════ */
 .header {
   background: var(--neutral-inverse);
-  padding: calc(64px + var(--sp-6)) var(--sp-7) var(--sp-6);
+  padding: calc(76px + var(--sp-6)) var(--sp-7) var(--sp-6);
   position: relative;
   overflow: hidden;
 }
@@ -960,14 +960,32 @@ body {
 }
 .site-nav-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter);
-  height: 64px; display: flex; align-items: center; justify-content: space-between;
+  height: 76px; display: flex; align-items: center; justify-content: space-between;
 }
-.site-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.site-nav-logo img { height: 28px; width: auto; }
+.site-nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.site-nav-logo img { height: 48px; width: auto; }
 .site-nav-logo span {
-  font-family: var(--font-button); font-weight: 700; font-size: 1rem;
-  color: #fff; letter-spacing: -0.01em; white-space: nowrap;
+  font-family: var(--font-button); font-weight: 700; font-size: 0.82rem;
+  line-height: 1.1; text-transform: uppercase; letter-spacing: 0.06em;
+  color: #fff; white-space: nowrap;
 }
+.site-nav-links .has-dropdown { position: relative; }
+.site-nav-links .has-dropdown > a .caret { font-size: 0.62em; margin-left: 5px; opacity: 0.7; }
+.site-nav-links .dropdown {
+  list-style: none; position: absolute; top: 100%; left: -14px; min-width: 210px;
+  background: rgba(29,29,31,0.98); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 8px 0; margin-top: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.site-nav-links .has-dropdown:hover .dropdown,
+.site-nav-links .has-dropdown:focus-within .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.site-nav-links .dropdown li { width: 100%; }
+.site-nav-links .dropdown a { display: block; padding: 9px 20px; font-size: 0.86rem; color: rgba(255,255,255,0.8); white-space: nowrap; }
+.site-nav-links .dropdown a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.site-nav-links .dropdown a.active { color: var(--accent-secondary); }
+.site-nav-links > li > a.active { color: var(--accent-secondary); }
 .site-nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
 .site-nav-links a {
   color: rgba(255,255,255,0.78); font-family: var(--font-button);
@@ -1011,12 +1029,19 @@ body {
 @media (max-width: 900px) {
   .site-hamburger { display: flex; }
   .site-nav-links {
-    position: absolute; top: 64px; left: 0; right: 0;
+    position: absolute; top: 76px; left: 0; right: 0;
     flex-direction: column; align-items: flex-start;
     background: rgba(29,29,31,0.98); padding: var(--sp-5) var(--gutter); gap: var(--sp-4);
     transform: translateY(-150%); transition: transform var(--transition-base);
   }
   .site-nav-links.open { transform: translateY(0); }
+  .site-nav-links .dropdown {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    box-shadow: none; border: none; border-radius: 0; margin: var(--sp-2) 0 0; padding: 0;
+    background: transparent;
+  }
+  .site-nav-links .dropdown a { padding-left: var(--sp-4); }
+  .site-nav-links .has-dropdown > a .caret { display: none; }
   .site-footer-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
 }
 
@@ -1029,18 +1054,23 @@ body {
 <!-- Site navigation -->
 <nav class="site-nav" id="nav" aria-label="Main navigation">
   <div class="site-nav-inner">
-    <a href="/" class="site-nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream Consulting</span></a>
+    <a href="/" class="site-nav-logo"><img src="/images/logo-invert-small.png" alt="Upstream Consulting"><span>Upstream<br>Consulting</span></a>
     <button class="site-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <ul class="site-nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
       <li><a href="/behind-the-work/">Behind the Work</a></li>
-      <li><a href="/ai-integration/">AI Integration</a></li>
+      <li class="has-dropdown">
+        <a href="/ai-integration/" class="active" aria-haspopup="true">AI Integration <span class="caret">&#9662;</span></a>
+        <ul class="dropdown">
+          <li><a href="/ai-integration/">AI Integration</a></li>
+          <li><a href="/sample-builds/">Sample Builds</a></li>
+          <li><a href="/ways-to-work/" class="active">Ways to Work</a></li>
+        </ul>
+      </li>
       <li><a href="/red/">Real Estate Dev</a></li>
       <li><a href="/system-development/">Systems Dev</a></li>
-      <li><a href="/sample-builds/">Sample Builds</a></li>
-      <li><a href="/ways-to-work/" class="active">Ways to Work</a></li>
       <li><a href="/contact/">Contact</a></li>
     </ul>
   </div>
