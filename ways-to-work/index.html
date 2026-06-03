@@ -126,7 +126,7 @@ body {
    ══════════════════════════════════════════════════════════ */
 .header {
   background: var(--neutral-inverse);
-  padding: calc(76px + var(--sp-6)) var(--sp-7) var(--sp-6);
+  padding: calc(122px + var(--sp-5)) var(--sp-7) var(--sp-6);
   position: relative;
   overflow: hidden;
 }
@@ -986,6 +986,26 @@ body {
 .site-nav-links .dropdown a:hover { color: #fff; background: rgba(255,255,255,0.06); }
 .site-nav-links .dropdown a.active { color: var(--accent-secondary); }
 .site-nav-links > li > a.active { color: var(--accent-secondary); }
+.subnav {
+  position: fixed; top: 76px; left: 0; right: 0; z-index: 999;
+  background: rgba(29,29,31,0.97); border-top: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.subnav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter);
+  height: 46px; display: flex; align-items: center; gap: 30px;
+}
+.subnav-label {
+  font-family: var(--font-button); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-secondary); margin-right: 4px;
+}
+.subnav a { color: rgba(255,255,255,0.72); font-size: 0.85rem; font-weight: 500; white-space: nowrap; text-decoration: none; border: 0; }
+.subnav a:hover { color: #fff; }
+.subnav a.active { color: var(--accent-secondary); }
+@media (max-width: 900px) {
+  .subnav-inner { gap: 18px; padding: 0 16px; overflow-x: auto; }
+  .subnav-label { display: none; }
+}
 .site-nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
 .site-nav-links a {
   color: rgba(255,255,255,0.78); font-family: var(--font-button);
@@ -1061,18 +1081,21 @@ body {
     <ul class="site-nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
       <li><a href="/behind-the-work/">Behind the Work</a></li>
-      <li class="has-dropdown">
-        <a href="/ai-integration/" class="active" aria-haspopup="true">AI Integration <span class="caret">&#9662;</span></a>
-        <ul class="dropdown">
-          <li><a href="/ai-integration/">AI Integration</a></li>
-          <li><a href="/sample-builds/">Sample Builds</a></li>
-          <li><a href="/ways-to-work/" class="active">Ways to Work</a></li>
-        </ul>
-      </li>
+      <li><a href="/ai-integration/" class="active">AI Integration</a></li>
       <li><a href="/red/">Real Estate Dev</a></li>
       <li><a href="/system-development/">Systems Dev</a></li>
       <li><a href="/contact/">Contact</a></li>
     </ul>
+  </div>
+</nav>
+
+<!-- Section sub-nav -->
+<nav class="subnav" aria-label="AI Integration section">
+  <div class="subnav-inner">
+    <span class="subnav-label">AI Integration</span>
+    <a href="/ai-integration/">Overview</a>
+    <a href="/sample-builds/">Sample Builds</a>
+    <a href="/ways-to-work/" class="active">Ways to Work</a>
   </div>
 </nav>
 

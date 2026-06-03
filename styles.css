@@ -286,6 +286,53 @@ p + p { margin-top: 1rem; }
   line-height: 1.65;
   margin: 0 0 .6rem;
 }
+/* extra top clearance when the section sub-bar is present */
+.has-subnav .hero-band { padding-top: 150px; }
+
+/* Section sub-nav bar — sits under the main nav on section pages */
+.subnav {
+  position: fixed;
+  top: 76px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(30,30,31,.97);
+  border-top: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.subnav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.subnav-label {
+  font-family: 'Syne', sans-serif;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-right: 4px;
+}
+.subnav a {
+  color: rgba(255,255,255,.72);
+  font-size: .85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  position: relative;
+}
+.subnav a:hover { color: var(--white); }
+.subnav a.active { color: var(--gold); }
+@media (max-width: 900px) {
+  .subnav-inner { gap: 18px; padding: 0 16px; overflow-x: auto; }
+  .subnav-label { display: none; }
+  .has-subnav .hero-band { padding-top: 130px; }
+}
 
 /* Hamburger */
 .hamburger {
